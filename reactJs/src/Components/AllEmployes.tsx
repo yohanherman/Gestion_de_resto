@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
+import DeleteEmploye from "./deleteEmployes";
 
 interface Items{
     id:number,
@@ -31,18 +32,24 @@ const Employes=()=>{
 return(
 
     <div>
-   
+        <div className=" flex justify-center items-cente gap-2">
+
     {data && data.map((items,index)=>(
-        
-        <ul key={index}>
-            <hr />
-            <li>{items.first_name}</li>
-            <li>{items.last_name}</li>
-            <li>{items.hire_date}</li>
-            <li>{items.name}</li>
-            <li>{items.city}</li>
+
+        <ul key={index} className="shadow-md p-4 ">
+            <li  className="m-1">Nom: <span className="font-bold uppercase">{items.last_name}</span></li>
+            <li className="m-1">Prenom : <span className="font-bold capitalize">{items.first_name}</span></li>
+            <li  className="m-1">Embauche le : <span className="font-bold">{items.hire_date}</span></li>
+            <li  className="m-1">Assigné au restaurant : <span className="font-bold">{items.name}</span></li>
+            <li  className="m-1">Dans la ville de : <span className="font-bold">{items.city}</span></li>
+
+            <DeleteEmploye id={items.id}/>
+       
+        <button>Modifier</button>
         </ul>
-    ))}
+
+))}
+</div>
     </div>
 
 

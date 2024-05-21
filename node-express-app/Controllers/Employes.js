@@ -24,12 +24,10 @@ const getAllEmployesByResId=(req,res)=>{
 
 const createEmployes=(req,res)=>{
 
-    const first_name = req.body.first_name;
-    const last_name=req.body.last_name;
-    const hire_date=req.body.hire_date;
-    const restaurant_id= req.body.restaurant_id;
 
-    connexion.query('INSERT INTO employes (first_name,last_name,hire_date,restaurant_id) VALUES (?,?, STR_TO_DATE(?,"%d/%m/%Y"), ? )',[first_name,last_name,hire_date,restaurant_id],(err,result)=>{
+    const {first_name,last_name,hire_date,restaurant_id}=req.body
+
+    connexion.query('INSERT INTO employes (first_name,last_name, hire_date, restaurant_id) VALUES (?,?, STR_TO_DATE(?,"%d/%m/%Y"), ? )',[first_name,last_name,hire_date,restaurant_id],(err,result)=>{
         if(err)throw err;
         res.status(201).json({message:'employe cree avec succes'})
     

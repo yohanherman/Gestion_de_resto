@@ -1,20 +1,19 @@
 import axios from "axios";
-import { useState,useEffect, ChangeEvent } from "react";
+import { useState,useEffect} from "react";
+import { format } from 'date-fns';
+import { useNavigate } from "react-router-dom";
+
 
 interface Items{
     id:number,
-    first_name:string,
-    last_name:string,
-    hire_date:string,
-
     name:string,
-    city:string
 }
 
 
-
-
 const CreateEmploye=()=>{
+
+        const navigate=useNavigate()
+
         const [data, setDate]=useState<Items[]>();
 
         const[Employe,setEmploye]=useState({
@@ -26,8 +25,7 @@ const CreateEmploye=()=>{
 
         })
 
-
-        const handleOnChange=(e:any)=>{
+        const handleOnChange=(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)=>{
             const value=e.target.value;
 
             setEmploye({
@@ -37,9 +35,35 @@ const CreateEmploye=()=>{
 
         }
 
+        const handleSubmit= async (e:any)=>{
 
+          e.preventDefault();
+          
+          try{
 
-            
+            // mon front m'envoie au format dd-mm-yy en faisant ca je converti en dd/mm/yyy
+            const formattedDate = format(new Date(Employe.hire_date), 'dd/MM/yyyy');
+
+            const formData={
+              first_name:Employe.first_name,
+              last_name:Employe.last_name,
+              hire_date:formattedDate,
+              restaurant_id:Employe.restaurant_id
+            }
+
+            console.log(formData);
+
+            const response = await axios.post('http://localhost:5000/api/employes',formData);
+            setDate(response.data);
+            navigate(-1);
+            // console.log('ajouter avec success')
+
+          }catch(err){
+            console.log(err)
+          }
+
+        }
+
         useEffect(()=>{
                 async function getAllRestaurants(){
         
@@ -59,9 +83,11 @@ const CreateEmploye=()=>{
 
     return(
 
-    <div>
 
+    <div>
     <h1>Creation d'un Employé</h1>
+
+<form action="" onSubmit={handleSubmit}>
 
 <div>
   <label htmlFor="last_name">Nom</label>
@@ -82,15 +108,20 @@ const CreateEmploye=()=>{
 <div>
   <label htmlFor="Restaurant">Restaurant</label>
 
- <select name="restaurant_id">
+ <select name="restaurant_id" onChange={handleOnChange}>
+ <option value="">Sélectionner un restaurant</option>
   {data && data.map((items,index)=>(
-    <option onChange={handleOnChange} value={items.id}>{items.name}</option>))}
+    <option  key={index} value={items.id}>{items.name}</option>))}
  </select>
 
 </div>
 
 <button type='submit'>Enregister</button>
+
+</form>
+
 </div>
+
 
 
 )}

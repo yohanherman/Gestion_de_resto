@@ -39,20 +39,24 @@ useEffect(()=>{
     <div>
     <Navbar/>
 
-    <h1 className="font-bold text-2xl">Restaurants</h1>
+    <h1 className="font-bold text-2xl my-7">Restaurants</h1>
 
-   <div className="text-end"><Link to={'/CreateRestaurant'}>Creer un restaurant <i className="fa-solid fa-plus"></i></Link></div>
+   <div className="text-end mb-10"><span className="bg-sky-500 p-2 text-white font-bold"><Link to={'/CreateRestaurant'}>Creer un restaurant <i className="fa-solid fa-plus text-black text-xl"></i></Link></span></div>
+
+<div className="">
 
     {data && data.map((items,index)=>(
 
     <ul key={index}>
-        {/* <li key={index}></li> */}
-        <li className="text-xl capitalize ">{items.name}</li>
-        <Link to={`/restaurants/${items.id}`}> voir plus</Link>
-
+          <div className="mb-5">
+        <li className="text-xl capitalize font-bold ">{items.name}</li>
+        <Link to={`/restaurants/${items.id}`}> voir plus <i className="fa-solid fa-arrow-right"></i></Link>
+          </div>
     </ul>
 
     ))}
+
+</div>
  
     </div>
  )}

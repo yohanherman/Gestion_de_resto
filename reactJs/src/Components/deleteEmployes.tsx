@@ -25,7 +25,7 @@ const DeleteEmploye=({id}:{id :number})=>{
 
     return(<>
 
-        <button onClick={handleDeleteEmp} type='button'><i className="fa-solid fa-trash"></i></button>
+        <button onClick={handleDeleteEmp} type='button'><i className="fa-solid fa-trash text-red-700"></i></button>
     
     </>)
 

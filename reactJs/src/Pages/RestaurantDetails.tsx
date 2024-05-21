@@ -84,7 +84,7 @@ const RestaurantDetails=()=>{
       <td className="p-2 border">{data[0].nbcouverts}</td>
       <td className="p-2 border">{data[0].terrasse}</td>
       <td className="p-2 border">{data[0].parking}</td>
-      <td className="p-2 border"> <DeleteRestaurant id={data[0].id}/><Link to={`/Modifier/${data[0].id}`}>Modifier</Link></td>
+      <td className="p-2 border"><DeleteRestaurant id={data[0].id}/><span className="bg-sky-600 p-2 text-white rounded"><Link to={`/Modifier/${data[0].id}`}>Modifier</Link></span></td>
     {/* <Link to={`/Modifier/${data[0].id}`}>Modifier</Link> */}
     </tr>
   </tbody>
@@ -93,13 +93,20 @@ const RestaurantDetails=()=>{
 
 <div className="my-8">
 
-<h3>les equipes du Restaurant</h3>
+<h3 className="font-bold  mb-4">Equipier du Restaurant</h3>
 
 {Employe && Employe.map((items,index)=>(
+
+
   
   <ul key={index}>
-    <li>{items.first_name} - {items.last_name}  <DeleteEmploye id={items.id}/></li>
+
+  
+    <li>{items.first_name} - <span className="font-bold">{items.last_name}</span><span className="mx-5"><DeleteEmploye id={items.id}/></span></li>
+  
+
   </ul>
+
 
 )
 )}

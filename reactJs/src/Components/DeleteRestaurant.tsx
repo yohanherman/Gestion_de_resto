@@ -28,7 +28,7 @@ const DeleteRestaurant=({id}:{id:number})=>{
 
 
     return (<>
-    <button className='bg-red-700 text-white rounded p-2' type="button" onClick={handleDelete}>supprimer</button>
+    <button className='p-2 rounded bg-red-700 text-white mx-1' type="button" onClick={handleDelete}>Supprimer</button>
     </>)
 }
 
