@@ -1,5 +1,10 @@
 import axios from "axios";
 
+const axiosInstance=axios.create({
+    baseURL:'http:/localhost:5000/api',
+    withCredentials:true
+})
+
 
 const DeleteEmploye=({id}:{id :number})=>{
 
@@ -9,8 +14,8 @@ const DeleteEmploye=({id}:{id :number})=>{
             const answer=window.confirm('Etes-vous sur de vouloir supprimer cet equipier');
             if(answer){
 
-                axios.delete(`http://localhost:5000/api/employes/${id}`)
-                console.log('efface avec succes')
+                axiosInstance.delete(`http://localhost:5000/api/employes/${id}`)
+                // console.log('efface avec succes')
 
             }else{
                 console.log('erreur')

@@ -4,6 +4,12 @@ import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 
 
+const axiosInstance= axios.create({
+  baseURL:'http://localhost:5000/api',
+  withCredentials:true,
+})
+
+
 interface Items{
     id:number,
     name:string,
@@ -13,9 +19,15 @@ interface Items{
 const CreateEmploye=()=>{
 
         const navigate=useNavigate()
+        
+        useEffect(()=>{
+          if(!document.cookie){
+            navigate('/connexion')
+;          }
+        })
 
         const [data, setDate]=useState<Items[]>();
-
+        
         const[Employe,setEmploye]=useState({
 
             first_name:'',
@@ -32,11 +44,9 @@ const CreateEmploye=()=>{
                 ...Employe,
                 [e.target.name]:value
             })
-
         }
 
         const handleSubmit= async (e:any)=>{
-
           e.preventDefault();
           
           try{
@@ -50,10 +60,9 @@ const CreateEmploye=()=>{
               hire_date:formattedDate,
               restaurant_id:Employe.restaurant_id
             }
+            // console.log(formData);
 
-            console.log(formData);
-
-            const response = await axios.post('http://localhost:5000/api/employes',formData);
+            const response = await axiosInstance.post('http://localhost:5000/api/employes',formData);
             setDate(response.data);
             navigate(-1);
             // console.log('ajouter avec success')
@@ -61,24 +70,19 @@ const CreateEmploye=()=>{
           }catch(err){
             console.log(err)
           }
-
         }
 
         useEffect(()=>{
                 async function getAllRestaurants(){
-        
                     try{
                         const response= await axios.get('http://localhost:5000/api/restaurants');
                         // console.log(response);
                         setDate(response.data);
-        
                     }catch(error){
                         console.log(error)
                     }
-        
                 }
                 getAllRestaurants();
-        
         },[])
 
     return(

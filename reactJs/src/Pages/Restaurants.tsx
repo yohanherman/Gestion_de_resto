@@ -24,6 +24,7 @@ useEffect(()=>{
                 const response= await axios.get('http://localhost:5000/api/restaurants');
                 // console.log(response);
                 setDate(response.data);
+               
 
             }catch(error){
                 console.log(error)

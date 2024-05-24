@@ -4,7 +4,6 @@ const connexion=require('../Models/connexion');
 
 const getAllrestaurants=(req,res)=>{
 
-
     // connexion.query('SELECT restaurant.id, restaurant.name , restaurant.city , restaurant.terrasse ,restaurant.parking ,employes.first_name , employes.last_name  FROM restaurant JOIN employes ON restaurant.employes_id = employes.id',(err,results)=>{
 
     connexion.query('SELECT restaurant.id, restaurant.name , restaurant.nbcouverts , restaurant.city , restaurant.terrasse ,restaurant.parking  FROM restaurant',(err,results)=>{

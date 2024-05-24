@@ -1,11 +1,30 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+
+
+const axiosInstance= axios.create({
+    baseURL: 'http://localhost:5000/api',
+    withCredentials: true
+})
 
 
 const CreateRestaurant=()=>{
 
     const navigate = useNavigate();
+
+    useEffect(()=>{
+
+           if(!document.cookie){
+                navigate('/connexion');
+                console.log('pas de token')
+            }else{
+                // console.log('il ya le token')
+
+            }
+
+    })
 
     const [data,setData]=useState({
        
@@ -17,7 +36,6 @@ const CreateRestaurant=()=>{
         
     })
 
-
     const handleOnChange=(e:any)=>{
 
         const value=e.target.value;
@@ -27,7 +45,6 @@ const CreateRestaurant=()=>{
         })
 
     }
-
 
     const HandleSubmit= async(e:any)=>{
         e.preventDefault();
@@ -42,13 +59,11 @@ const CreateRestaurant=()=>{
                     parking:data.parking
                 }
                 
-    
-                const response=await axios.post('http://localhost:5000/api/restaurants',formData)
+                const response=await axiosInstance.post('http://localhost:5000/api/restaurants',formData)
                 // console.log('resto ajouté')
                 setData(response.data)
                 navigate(-1);
-    
-    
+                
             }catch(err){
                 console.log(err)
             }

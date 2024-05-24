@@ -2,34 +2,44 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
-const DeleteRestaurant=({id}:{id:number})=>{
+// je cree une instance  axios avec les cookies pour authoriser les requetes car route securisee
 
-    const navigate= useNavigate();
+const axiosInstance= axios.create({
+    baseURL:'http://localhost:5000/api/',
 
-    async function handleDelete(){
+    // pour inclure les cookie
+    withCredentials:true,
+})
 
-        try{
-            const answer= window.confirm('veux-tu vraiment effacer ce restaurant ?')
+const DeleteRestaurant = ({ id }: { id: number }) => {
 
-            if(answer){
-                axios.delete(`http://localhost:5000/api/restaurants/${id}`)
-                // console.log('efface avec succes')
+    const navigate = useNavigate();
+
+    async function handleDelete() {
+        try {
+            const answer = window.confirm('Veux-tu vraiment effacer ce restaurant ?');
+
+            if (answer) {
+                // Envoyer la requête de suppression
+                await axiosInstance.delete(`restaurants/${id}`);
                 navigate(-1);
-            }else{
-                return ;
+
+            } else {
+                return;
             }
-
-        }catch(err){
-            console.log(err)
+            
+        } catch (err) {
+            console.log(err);
         }
-
-
     }
 
+    
+    return (
+        <button className='p-2 rounded bg-red-700 text-white mx-1' type="button" onClick={handleDelete}>
+            Supprimer
+        </button>
+    );
 
-    return (<>
-    <button className='p-2 rounded bg-red-700 text-white mx-1' type="button" onClick={handleDelete}>Supprimer</button>
-    </>)
+
 }
-
-export default DeleteRestaurant;
+    export default DeleteRestaurant;

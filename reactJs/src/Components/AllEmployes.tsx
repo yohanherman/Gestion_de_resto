@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
 import DeleteEmploye from "./deleteEmployes";
+import { Link } from "react-router-dom";
 
 interface Items{
     id:number,
@@ -43,9 +44,11 @@ return(
             <li  className="m-1">Assigné au restaurant : <span className="font-bold">{items.name}</span></li>
             <li  className="m-1">Dans la ville de : <span className="font-bold">{items.city}</span></li>
 
-            <DeleteEmploye id={items.id}/>
+          <div className="mt-5 flex justify-center items-center gap-20">
+            <div className="text-2xl"><DeleteEmploye id={items.id}/></div>
+           <div className="text-2xl"><Link to={`/modifier-employe/${items.id}`}><i className="fa-solid fa-pen text-sky-600 "></i></Link></div>
+          </div>
        
-        <button>Modifier</button>
         </ul>
 
 ))}

@@ -5,6 +5,13 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+
+const axiosInstance=axios.create({
+  baseURL:'http://localhost:5000/api',
+  withCredentials:true,
+})
+
+
 interface Items {
   id: number;
   name: string;
@@ -17,11 +24,15 @@ interface Items {
 
 
 const Update = () => {
+
   
   const { id } = useParams();
   const restaurantId = parseInt(id, 10);
   
   const navigate=useNavigate()
+
+  
+  
 
 
   const [data, setData] = useState<Items[]>([]);
@@ -61,7 +72,7 @@ const Update = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/restaurants/${restaurantId}`, data[0]);
+      await axiosInstance.put(`http://localhost:5000/api/restaurants/${restaurantId}`, data[0]);
       navigate(-1)
     } catch (err) {
       console.log(err);

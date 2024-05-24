@@ -2,6 +2,11 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
+
+import Logout from './Logout'
+
+
+
 const navigation = [
   { name: 'Accueil', href: '/', current: true },
   { name: 'Restaurants', href: '/Restaurants', current: false },
@@ -101,6 +106,19 @@ export default function Navbar() {
                           </a>
                         )}
                       </Menu.Item>
+                    
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="/connexion"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Connexion
+                          </a>
+                        )}
+                      </Menu.Item>
+
+
                       <Menu.Item>
                         {({ active }) => (
                           <a
@@ -111,16 +129,21 @@ export default function Navbar() {
                           </a>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
+
+
+
+
+                
+                           
+                    
+
+                          <Logout/>
+
+
+                        
+                
+
+                      
                     </Menu.Items>
                   </Transition>
                 </Menu>

@@ -36,8 +36,8 @@ const logIn=(req,res,next)=>{
         }
 
 
-        const user=results[0];
 
+        const user=results[0];
 
         bcrypt.compare(password , user.password)
         .then(valid=>{
@@ -45,25 +45,32 @@ const logIn=(req,res,next)=>{
             if(!valid){
                 res.status(401).json({message:'paire identifiant/mot de passe incorrect'})
             }else{
+                
+                const token = jwt.sign({userId: user.id},'RANDOM_TOKEN_SECRET',{expiresIn:'24h'});
+
+                res.cookie('access-token', token,{
+                    httpOnly:true,
+                    secure:process.env.NODE_ENV ==='production',
+                    // protéger contre les attaques CSRF
+                    sameSite: 'Strict', 
+                })
+
                 res.status(200).json({
-
-                    userId: user.id,
-
-                    token: jwt.sign(
-                        { userId : user.id},
-                        'RANDOM_TOKEN_SECRET',
-                        {expiresIn:'24h'}
-
-                    )
-                    
+                        userId :user.id,
+                        token
                 })
             }
-
         })
-        .catch((err)=>{res.status(500).json({err})})
 
+        .catch((err)=>{res.status(500).json({err})})
     })
+}
+
+
+const logout=(req,res,next)=>{
+    
+    res.clearCookie("access-token").status(200).json({message:'deconncté avec succes'});
 
 }
 
-module.exports={signUp,logIn}
+module.exports={signUp,logIn,logout}
