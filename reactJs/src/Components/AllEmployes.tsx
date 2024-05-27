@@ -33,7 +33,7 @@ const Employes=()=>{
 return(
 
     <div>
-        <div className=" flex justify-center items-cente gap-2">
+        <div className="md:flex justify-center items-center flex-wrap">
 
     {data && data.map((items,index)=>(
 

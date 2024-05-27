@@ -66,6 +66,8 @@ const RestaurantDetails=()=>{
     <div>
         <p className="mb-5">Fiche du Restaurant <span className="uppercase font-bold">{data[0].name}</span></p>
 
+<div className="flex justify-center">
+
 <table>
   <thead>
     <tr>
@@ -84,16 +86,16 @@ const RestaurantDetails=()=>{
       <td className="p-2 border">{data[0].nbcouverts}</td>
       <td className="p-2 border">{data[0].terrasse}</td>
       <td className="p-2 border">{data[0].parking}</td>
-      <td className="p-2 border"><DeleteRestaurant id={data[0].id}/><span className="bg-sky-600 p-2 text-white rounded"><Link to={`/Modifier/${data[0].id}`}>Modifier</Link></span></td>
-    {/* <Link to={`/Modifier/${data[0].id}`}>Modifier</Link> */}
+      <td className="p-2 border flex flex-col gap-1 md:flex-row"><DeleteRestaurant id={data[0].id}/><span className="bg-sky-600 p-2 text-white rounded"><Link to={`/Modifier/${data[0].id}`}>Modifier</Link></span></td>
     </tr>
   </tbody>
 </table>
 
+</div>
 
 <div className="my-8">
 
-<h3 className="font-bold  mb-4">Equipier du Restaurant</h3>
+<h3 className="font-bold  mb-4">Equipiers du Restaurant</h3>
 
 {Employe && Employe.map((items,index)=>(
 

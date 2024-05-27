@@ -2,7 +2,6 @@
 import './App.css'
 import Accueil from './Pages/Accueil'
 import Restaurants from './Pages/Restaurants'
-import EmployesPage from './Pages/Employes'
 import About from './Pages/about'
 import CreateEmploye from './Pages/createEmploye'
 import Update from './Pages/updateRestaurant';

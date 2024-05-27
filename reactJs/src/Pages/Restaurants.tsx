@@ -42,7 +42,7 @@ useEffect(()=>{
 
     <h1 className="font-bold text-2xl my-7">Restaurants</h1>
 
-   <div className="text-end mb-10"><span className="bg-sky-500 p-2 text-white font-bold"><Link to={'/CreateRestaurant'}>Creer un restaurant <i className="fa-solid fa-plus text-black text-xl"></i></Link></span></div>
+   <div className="text-center my-16 md:text-end"><span className="bg-sky-500 p-2 text-white font-bold"><Link to={'/CreateRestaurant'}>Creer un restaurant <i className="fa-solid fa-plus text-black text-xl"></i></Link></span></div>
 
 <div className="">
 

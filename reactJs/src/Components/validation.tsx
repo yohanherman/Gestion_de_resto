@@ -37,6 +37,8 @@ const validation=(data : any)=>{
         errors.parking='ce champs est requis'
     }else if(!parking_pattern.test(data.parking)){
         errors.parking='vous ne pouvez repondre que par OUI/NON'
+    }else if(data.parking.length >3){
+        errors.parking=' 3 caracteres au maximum'
     }
 
     if(!data.terrasse){
@@ -70,6 +72,24 @@ const validation=(data : any)=>{
 
     if(!data.restaurant_id){
         errors.restaurant_id="veuillez selectionner un restaurant";
+    }
+
+    // formulaire de connexion
+
+    const email_pattern= /^[A-Za-z0-9_.+-]+@[A-Za-z0-9-]+\.[a-zA-Z0-9-.]+$/
+    const password_pattern= /^[A-Za-z0-9]+$/
+
+
+    if(!data.email){
+        errors.email='un Email est requis'
+    }else if(!email_pattern.test(data.email)){
+        errors.email='email invalide'
+    }
+
+    if(!data.password){
+        errors.password=' un mot de passe est requis'
+    }else if(!password_pattern.test(data.password)){
+        errors.password= 'le mot de passe ne doit pas contenir de caracteres speciaux'
     }
 
 
