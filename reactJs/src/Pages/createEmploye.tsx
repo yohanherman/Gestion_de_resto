@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState,useEffect} from "react";
 import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
+import validation from "../Components/validation";
 
 
 const axiosInstance= axios.create({
@@ -15,7 +16,6 @@ interface Items{
     name:string,
 }
 
-
 const CreateEmploye=()=>{
 
         const navigate=useNavigate()
@@ -26,7 +26,9 @@ const CreateEmploye=()=>{
 ;          }
         })
 
+
         const [data, setDate]=useState<Items[]>();
+
         
         const[Employe,setEmploye]=useState({
 
@@ -46,12 +48,18 @@ const CreateEmploye=()=>{
             })
         }
 
+
+        const [errors,setErrors]=useState({})
+
         const handleSubmit= async (e:any)=>{
           e.preventDefault();
+
+          setErrors(validation(Employe))
+
           
           try{
 
-            // mon front m'envoie au format dd-mm-yy en faisant ca je converti en dd/mm/yyy
+            // mon front m'envoie au format dd-mm-yy en faisant ca je convertie en dd/mm/yyy
             const formattedDate = format(new Date(Employe.hire_date), 'dd/MM/yyyy');
 
             const formData={
@@ -64,7 +72,7 @@ const CreateEmploye=()=>{
 
             const response = await axiosInstance.post('http://localhost:5000/api/employes',formData);
             setDate(response.data);
-            navigate(-1);
+            navigate('/Employes');
             // console.log('ajouter avec success')
 
           }catch(err){
@@ -96,16 +104,20 @@ const CreateEmploye=()=>{
 <div>
   <label htmlFor="last_name">Nom</label>
   <input type="text" name="last_name" onChange={handleOnChange}/>
+  {errors.last_name && <p style={{color:'red',marginTop:'4px', marginBottom:'10px'}}>{errors.last_name}</p>}
 </div>
 
 <div>
   <label htmlFor="first_name">Prenom</label>
   <input type="text" name="first_name" onChange={handleOnChange} />
+  {errors.first_name && <p style={{color:'red',marginTop:'4px', marginBottom:'10px'}}>{errors.first_name}</p>}
 </div>
 
 <div>
   <label htmlFor="hire_date">Date d'embauche</label>
   <input type="date" name="hire_date" onChange={handleOnChange} />
+  {errors.hire_date && <p style={{color:'red',marginTop:'4px', marginBottom:'10px'}}>{errors.hire_date}</p>}
+
 </div>
 
 
@@ -117,6 +129,7 @@ const CreateEmploye=()=>{
   {data && data.map((items,index)=>(
     <option  key={index} value={items.id}>{items.name}</option>))}
  </select>
+ {errors.restaurant_id && <p style={{color:'red',marginTop:'4px', marginBottom:'10px'}}>{errors.restaurant_id}</p>}
 
 </div>
 

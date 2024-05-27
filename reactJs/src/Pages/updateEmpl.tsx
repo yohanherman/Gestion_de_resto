@@ -4,6 +4,7 @@ import { useState,useEffect, ChangeEvent } from "react";
 import {format} from "date-fns"
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import validation from "../Components/validation";
 
 
 const axiosInstance=axios.create({
@@ -85,8 +86,11 @@ const UpdateEmploye=()=>{
             }
 
 
+            const [errors,setErrors]=useState({})
             const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
                 e.preventDefault() 
+                
+                setErrors(validation(employe))
                 
                 try{
                  const formattedDate= format(new Date(employe[0].hire_date),'dd/MM/yyyy');
@@ -121,10 +125,12 @@ const UpdateEmploye=()=>{
     <div>
         <label htmlFor="first_name">Prenom</label>
         <input type="text" value={employe[0].first_name} onChange={(e)=>handleOnChange(e , 0, "first_name")} />
+        
     </div>
     <div>
         <label htmlFor="last_name">Nom</label>
         <input type="text" value={employe[0].last_name} onChange={(e)=>handleOnChange(e ,0 , "last_name")}/>
+        {errors.last_name && <p style={{color:'red',marginTop:'4px', marginBottom:'10px'}}>{errors.last_name}</p>}
     </div>
     <div>
         <label htmlFor="hire_date">Embauché(e) le</label>
@@ -135,10 +141,12 @@ const UpdateEmploye=()=>{
     <label htmlFor="restaurant">Assigné au Restaurant</label>
 
     <select name="restaurant_id" id="restaurant_id" onChange={(e:ChangeEvent<HTMLSelectElement>)=>handleOnChange(e , 0 ,"restaurant_id")}>
+        <option value="">veuillez sectionner un restaurant</option>
     {restaurant && restaurant.map((items,index)=>(
     <option key={index} value={items.id}>{items.name}</option>
     ))}
     </select>
+    {errors.restaurant_id && <p style={{color:'red',marginTop:'4px', marginBottom:'10px'}}>{errors.restaurant_id}</p>}
 
   </div>
   <button type='submit'>Enregister</button>

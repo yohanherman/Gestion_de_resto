@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import validation from "./validation";
+
 
 
 
@@ -23,14 +25,13 @@ const CreateRestaurant=()=>{
                 // console.log('il ya le token')
 
             }
-
     })
 
     const [data,setData]=useState({
        
         name:'',
         city:'',
-        nbcouverts:'',
+        nbcouverts:0,
         terrasse:'',
         parking:'',
         
@@ -46,8 +47,14 @@ const CreateRestaurant=()=>{
 
     }
 
+    const [errors,setErrors]=useState({});
+
+
     const HandleSubmit= async(e:any)=>{
         e.preventDefault();
+
+        setErrors(validation(data))
+
         // console.log(data)
 
             try{
@@ -79,22 +86,29 @@ const CreateRestaurant=()=>{
    <div>
       <label htmlFor="name">Nom</label>
       <input  className='border border-slate-300' type="text" name='name' onChange={handleOnChange}/>
+      {errors.name && <p style={{color: 'red' , marginTop:'3px',marginBottom:'3px'}}>{errors.name}</p>}
+
    </div> 
    <div>
       <label htmlFor="ville">ville</label>
       <input  className='border border-slate-300' type="text"  name='city' onChange={handleOnChange}/>
+      {errors.city && <p style={{color:'red', marginTop:'3px',marginBottom:'3px'}}>{errors.city}</p>}
    </div> 
    <div>
       <label htmlFor="nbcouvert">nbre de couverts</label>
       <input  className='border border-slate-300'type="text" name='nbcouverts' onChange={handleOnChange} />
+      {errors.nbcouverts && <p style={{color:'red'}}>{errors.nbcouverts}</p>}
    </div> 
    <div>
       <label htmlFor="terrasse">Terrasse</label>
       <input  className='border border-slate-300' type="text" name='terrasse' onChange={handleOnChange}/>
+      {errors.terrasse && <p style={{color:'red'}}>{errors.terrasse}</p>}
   </div> 
   <div>
     <label htmlFor="parking">Parking</label>
     <input  className='border border-slate-300'  name='parking' type="text" onChange={handleOnChange} />
+    {errors.parking && <p style={{color:'red'}}>{errors.parking}</p>}
+    
   </div> 
 
   <button type="submit"> Ajouter</button>

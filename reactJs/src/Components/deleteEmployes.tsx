@@ -1,12 +1,14 @@
 import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 const axiosInstance=axios.create({
     baseURL:'http:/localhost:5000/api',
     withCredentials:true
 })
 
-
 const DeleteEmploye=({id}:{id :number})=>{
+
+    // const navigate=useNavigate();
 
     async function handleDeleteEmp(){
 
@@ -16,6 +18,7 @@ const DeleteEmploye=({id}:{id :number})=>{
 
                 axiosInstance.delete(`http://localhost:5000/api/employes/${id}`)
                 // console.log('efface avec succes')
+                // navigate('/Employes')
 
             }else{
                 console.log('erreur')
@@ -27,11 +30,8 @@ const DeleteEmploye=({id}:{id :number})=>{
         }
     }
 
-
     return(<>
-
         <button onClick={handleDeleteEmp} type='button'><i className="fa-solid fa-trash text-red-700"></i></button>
-    
     </>)
 
 }

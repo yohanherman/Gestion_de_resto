@@ -36,7 +36,7 @@ const Connexion =()=>{
             // console.log(response);
             
             if (response.status === 200) {
-                // Stocker le token JWT dans un cookie
+                // je stocke le token JWT dans un cookie
                 document.cookie = `token=${response.data.token}; Secure; SameSite=Strict`;
                 // navigate('/restaurants');
             
