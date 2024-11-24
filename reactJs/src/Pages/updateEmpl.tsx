@@ -125,6 +125,7 @@ const UpdateEmploye=()=>{
     <div>
         <label htmlFor="first_name">Prenom</label>
         <input type="text" value={employe[0].first_name} onChange={(e)=>handleOnChange(e , 0, "first_name")} />
+        {errors.first_name && <p style={{color:'red',marginTop:'4px', marginBottom:'10px'}}>{errors.first_name}</p>}
         
     </div>
     <div>

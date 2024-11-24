@@ -60,9 +60,9 @@ const validation=(data : any)=>{
     }
 
     if(!data.last_name){
-        errors.last_name='le champs prenom est requis'
+        errors.last_name='le champs nom est requis'
     }else if(!last_name_pattern.test(data.last_name)){
-        errors.last_name= "le champs prenom n'accepte que des lettres"
+        errors.last_name= "le champs nom n'accepte que des lettres"
     }
 
 

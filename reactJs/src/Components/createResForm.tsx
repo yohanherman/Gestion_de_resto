@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import validation from "./validation";
 
 
-
-
 const axiosInstance= axios.create({
     baseURL: 'http://localhost:5000/api',
     withCredentials: true

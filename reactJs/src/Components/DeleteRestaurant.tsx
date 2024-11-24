@@ -40,6 +40,5 @@ const DeleteRestaurant = ({ id }: { id: number }) => {
         </button>
     );
 
-
 }
     export default DeleteRestaurant;

@@ -66,7 +66,7 @@ const RestaurantDetails=()=>{
     <div>
         <p className="mb-5">Fiche du Restaurant <span className="uppercase font-bold">{data[0].name}</span></p>
 
-<div className="flex justify-center">
+<div className="flex justify-center overflow-x-auto">
 
 <table>
   <thead>
@@ -95,7 +95,7 @@ const RestaurantDetails=()=>{
 
 <div className="my-8">
 
-<h3 className="font-bold  mb-4">Equipiers du Restaurant</h3>
+<h3 className="font-bold  mb-4 ">Equipiers du Restaurant</h3>
 
 {Employe && Employe.map((items,index)=>(
 
@@ -104,7 +104,14 @@ const RestaurantDetails=()=>{
   <ul key={index}>
 
   
-    <li>{items.first_name} - <span className="font-bold">{items.last_name}</span><span className="mx-5"><DeleteEmploye id={items.id}/></span></li>
+    <li className="">
+      <span>{items.first_name}</span> - 
+      <span className="font-bold">{items.last_name}</span>
+      <div className="flex justify-center items-center mb-3">
+      <div className="mx-5 flex"><DeleteEmploye id={items.id}/></div>
+      {/* <div className=""><Link to={`/Employes/${items.id}`}>voir plus</Link></div> */}
+      </div>
+    </li>
   
 
   </ul>
